@@ -10,6 +10,8 @@ setosa = iris_df[iris_df.species == "Iris_setosa"]
 versicolor = iris_df[iris_df.species == "Iris_versicolor"]
 virginica = iris_df[iris_df.species == "Iris_virginica"]
 
+species = [setosa, versicolor, virginica]
+
 def get_regression_plot(species)
     """
     Parameters
@@ -32,7 +34,10 @@ def get_regression_plot(species)
     plt.ylabel("Sepal length (cm)")
     plt.legend()
     plt.savefig("petal_v_sepal_length_regress.png")
+    return 
 
+    #for taxon in species:
+    #    get_regression_plot(taxon)
 
 if __name__ == '__main__':
     main()
