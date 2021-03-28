@@ -4,13 +4,17 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import stats
 
-iris_df = pd.read_csv("iris.csv")
+#iris_df = pd.read_csv("iris.csv")
 
-setosa = iris_df[iris_df.species == "Iris_setosa"]
-versicolor = iris_df[iris_df.species == "Iris_versicolor"]
-virginica = iris_df[iris_df.species == "Iris_virginica"]
+# Subset iris dataframe
+#setosa = iris_df[iris_df.species == "Iris_setosa"]
+#versicolor = iris_df[iris_df.species == "Iris_versicolor"]
+#virginica = iris_df[iris_df.species == "Iris_virginica"]
 
-species = [setosa, versicolor, virginica]
+# Write csv containing species-specific dataframes
+#setosa.to_csv(path_or_buf="~/Dropbox/PhD/Classes/21_Spring/Scripting/python-exercises/python-tabular-data/setosa.csv")
+#versicolor.to_csv(path_or_buf="~/Dropbox/PhD/Classes/21_Spring/Scripting/python-exercises/python-tabular-data/versicolor.csv")
+#virginica.to_csv(path_or_buf="~/Dropbox/PhD/Classes/21_Spring/Scripting/python-exercises/python-tabular-data/virginica.csv")
 
 def get_regression_plot(species)
     """
