@@ -40,8 +40,9 @@ def get_regression_plot(species)
     plt.savefig("petal_v_sepal_length_regress.png")
     return 
 
-    #for taxon in species:
-    #    get_regression_plot(taxon)
-
 if __name__ == '__main__':
-    main()
+    if (len(sys.argv) < 1) or (len(sys.argv) > 1):
+        message = (
+                "{script_name}: Expecting one comma separated values file:\n"
+                "\tcontaining data from the Iris dataset".format(script_name = sys.argv[0]))
+        sys.exit(message)
