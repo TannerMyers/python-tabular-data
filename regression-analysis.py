@@ -1,5 +1,8 @@
 #! /usr/bin/env python3
 
+import os
+import argparse
+import sys
 import pandas as pd 
 import matplotlib.pyplot as plt
 from scipy import stats
@@ -44,16 +47,34 @@ def compose_plot_file_name(x_label, y_label, category_label = None):
             category_str)
     return plot_path
 
-def get_regression_plot(dataframe, x_column_name, y_column_name,
+def get_regression_plot(dataframe, x_column, y_column,
         category_column_name = None,
         plot_path = None):
-"""
+    """
+    Generate a scatter plot from the data in `dataframe`
+    -------------------------------------
+    Parameters: 
+    -------------------------------------
+    dataframe : a pandas.core.frame.DataFrame
+       A dataframe containing morphological measurements for a given species.
+    x_column : str
+        Name of column to be the predictor variable
+    y_column : str
+        Name of column to be the response variable
+    category_column_name : str
+        The name of the column used as a categorical variable. Can be used to split up the dataframe by rows for separate analysis. 
+        
 
-"""
+
+   Returns
+   -------------------------------
+   A scatterplot .png file showing the data with the regression of the x & y 
+   variables plotted onto them.
+    """
 # If no plot path is provided, we will save the plot to the current working
     # directory and use the x and y column names for the file name
     if not plot_path:
-        plot_path = compose_plot_file_name(x_column_name, y_column_name,
+        plot_path = compose_plot_file_name(x_column, y_column,
                 category_column_name)
 
     # Break up the dataframe into groups based on the columm with the
@@ -68,14 +89,14 @@ def get_regression_plot(dataframe, x_column_name, y_column_name,
 
     # Get the min and max values of X to use for the regression lines
     # below
-    x_min = min(dataframe[x_column_name])
-    x_max = max(dataframe[x_column_name])
+    xmin = min(dataframe[x_column])
+    xmax = max(dataframe[x_column])
 
     # Loop over our grouped dataframes and plot the points and regression line
     color_index = 0
     for category, df in grouped_dataframes:
-        x = df[x_column_name]
-        y = df[y_column_name]
+        x = df[x_column]
+        y = df[y_column]
         regression = stats.linregress(x, y)
         slope = regression.slope
         intercept = regression.intercept
@@ -83,16 +104,16 @@ def get_regression_plot(dataframe, x_column_name, y_column_name,
 
         # Get Y values predicted by linear regression for the min and max X
         # vlaues
-        y1 = slope * x_min + intercept
-        y2 = slope * x_max + intercept
+        y1 = slope * xmin + intercept
+        y2 = slope * xmax + intercept
         # Plot the regression line
-        plt.plot((x_min, x_max), (y1, y2),
+        plt.plot((xmin, xmax), (y1, y2),
                 color = 'C' + str(color_index))
         color_index += 1
 
     # Add labels and legend and save the plot
-    plt.xlabel(x_column_name)
-    plt.ylabel(y_column_name)
+    plt.xlabel(x_column)
+    plt.ylabel(y_column)
     plt.legend()
     plt.savefig(plot_path)
 
