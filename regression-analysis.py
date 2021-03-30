@@ -63,8 +63,9 @@ def get_regression_plot(dataframe, x_column, y_column,
         Name of column to be the response variable
     category_column_name : str
         The name of the column used as a categorical variable. Can be used to split up the dataframe by rows for separate analysis. 
-        
-
+        In this case, the species of the `Iris dataset`.
+    plot_path : str
+        Optional path to save the plot as.
 
    Returns
    -------------------------------
@@ -192,7 +193,7 @@ def main_cli():
         sys.stderr.write(msg)
         raise e
 
-    regress_and_scatter(dataframe, args.x, args.y,
+    get_regression_plot(dataframe, args.x, args.y,
             args.category, args.output_plot_path)
 
 
